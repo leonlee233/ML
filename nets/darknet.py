@@ -79,7 +79,6 @@ class Darknet(nn.Module):
                                            stride= 2,
                                            padding=1,
                                            bias=False))) 
-        layers.append("ds_bn",nn.BatchNorm2d(planes[1]))
         layers.append(("ds_bn",nn.BatchNorm2d(planes[1])))
         layers.append(("ds_relu",nn.LeakyReLU(0.1)))
         
