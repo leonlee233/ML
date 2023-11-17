@@ -61,4 +61,19 @@ class YoloBody(nn.Module):
     def forward(self,x):
         x2,x1,x0 = self.backbone(x)
         out0_branch = self.last_layer0[:5](x0)
-        out0
+        out0 = self.last_layer0[5:](out0_branch)
+        
+        x1_in = self.last_layer1_conv(out0_branch)
+        x1_in = self.last_layer1_upsample(x1_in)
+        
+        x1_in = torch.cat([x1_in, x1], 1)
+        
+        out1_branch = self.last_layer1[:5](x1_in)
+        out1        = self.last_layer1[5:](out1_branch)
+        
+        x2_in = self.last_layer2_conv(out1_branch)
+        x2_in = self.last_layer2_upsample(x2_in)
+        x2_in = torch.cat([x2_in, x2], 1)
+        
+        out2 = self.last_layer2(x2_in)
+        return out0, out1, out2
