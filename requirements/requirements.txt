@@ -1,0 +1,7 @@
+torch
+numpy
+matplotlib
+opencv_python
+tensorboardX
+PyYAML
+pycocotools
